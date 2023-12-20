@@ -153,7 +153,6 @@
         private static readonly Dictionary<string, Module> _modules = new Dictionary<string, Module>();
         private static readonly List<long> _cycleLengths = new List<long>();
         private static int _cycleLengthExpectedCount = 0;
-        private static bool _goalHit = false;
 
         private static void CreateModules(string[] inputLines)
         {
@@ -273,7 +272,7 @@
                 runningLcm = lcm(runningLcm, cycle);
             }
 
-            Console.Out.Write(runningLcm);
+            Console.Out.Write($"LCM of all cycle lengths was: {runningLcm}");
         }
     }
 }
