@@ -1,0 +1,72 @@
+﻿using System.Text;
+
+namespace Day02Problem1
+{
+    internal class Program
+    {
+        static async Task Main(string[] args)
+        {
+            // 12 red, 13 green, 14 blue
+            var possible = new Dictionary<string, int>
+            {
+                { "red", 12 },
+                { "green", 13 },
+                { "blue", 14 }
+            };
+
+            string[] inputLines = await File.ReadAllLinesAsync(args[0]);
+            int possibleGameIdSum = 0;
+            foreach (string line in inputLines)
+            {
+                string trimmed = line.Substring(5);
+                string gameIdString = trimmed.Substring(0, trimmed.IndexOf(':'));
+                int gameId = int.Parse(gameIdString);
+                string[] draws = trimmed.Substring(trimmed.IndexOf(':') + 1).Split(';');
+                bool allDrawsLegal = true;
+                foreach (string draw in draws)
+                {
+                    string[] drawCubeStrings = draw.Split(',');
+                    foreach (string s in drawCubeStrings)
+                    {
+                        var numberBuilder = new StringBuilder();
+                        for (int i = 0; i < s.Length; i++)
+                        {
+                            if (s[i] == ' ') continue;
+                            else if (char.IsLetter(s[i])) break;
+                            else if (char.IsDigit(s[i])) numberBuilder.Append(s[i]);
+                            else throw new Exception("what");
+                        }
+
+                        int count = int.Parse(numberBuilder.ToString());
+
+                        var colorBuilder = new StringBuilder();
+                        for (int i = 0; i < s.Length; i++)
+                        {
+                            if (s[i] == ' ') continue;
+                            else if (char.IsDigit(s[i])) continue;
+                            else if (char.IsLetter(s[i])) colorBuilder.Append(s[i]);
+                            else throw new Exception("what2");
+                        }
+
+                        string color = colorBuilder.ToString();
+
+                        if (possible[color] < count)
+                        {
+                            allDrawsLegal = false;
+                            break;
+                        }
+                    }
+
+                    if (!allDrawsLegal) break;
+                }
+
+                if (allDrawsLegal)
+                {
+                    possibleGameIdSum += gameId;
+                }
+            }
+
+            Console.Out.WriteLine(possibleGameIdSum);
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Day03Problem2": {
+      "commandName": "Project",
+      "commandLineArgs": "%USERPROFILE%\\Desktop\\AdventOfCode2023Inputs\\$(ProjectName)\\input.txt"
+    }
+  }
+}
