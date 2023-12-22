@@ -108,10 +108,10 @@ namespace Day22Problem2
         private static long GetDisintegrationSum(List<Brick> bricks)
         {
             long allDisintegrations = 0;
-            foreach (Brick brick in bricks)
+            Parallel.ForEach(bricks, brick =>
             {
-                allDisintegrations += HowManyMoveIfDisintegrated(bricks, brick);
-            }
+                Interlocked.Add(ref allDisintegrations, HowManyMoveIfDisintegrated(bricks, brick));
+            });
 
             return allDisintegrations;
         }
