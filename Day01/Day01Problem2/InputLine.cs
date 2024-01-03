@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day01Problem2
+﻿namespace Day01Problem2
 {
     public class InputLine
     {
@@ -28,29 +22,161 @@ namespace Day01Problem2
             _inputString = inputString;
         }
 
-        private int GetDigitValue(char digit)
+        public int GetLineValue()
         {
-            return digit - '0';
+            return GetFirstWordOrDigitValue() * 10 + GetLastWordOrDigitValue();
         }
 
-        private int GetFirstNumberWordIndex()
+        private int GetFirstWordOrDigitValue()
         {
-
+            NumberWordOccurrence? firstWordOccurrence = GetFirstNumberWordOccurrence();
+            DigitOccurrence? firstDigitOccurrence = GetFirstDigitOccurrence();
+            if (firstDigitOccurrence != null && firstWordOccurrence != null)
+            {
+                if (firstDigitOccurrence.Index < firstWordOccurrence.Index)
+                {
+                    return firstDigitOccurrence.DigitValue;
+                }
+                else
+                {
+                    return firstWordOccurrence.NumberWord.Value;
+                }
+            }
+            else
+            {
+                return GetNonNullOccurrenceValue(firstWordOccurrence, firstDigitOccurrence);
+            }
         }
 
-        private int GetFirstDigitIndex()
+        private int GetLastWordOrDigitValue()
         {
-
+            NumberWordOccurrence? lastWordOccurrence = GetLastNumberWordOccurrence();
+            DigitOccurrence? lastDigitOccurrence = GetLastDigitOccurrence();
+            if (lastDigitOccurrence != null && lastWordOccurrence != null)
+            {
+                if (lastDigitOccurrence.Index > lastWordOccurrence.Index)
+                {
+                    return lastDigitOccurrence.DigitValue;
+                }
+                else
+                {
+                    return lastWordOccurrence.NumberWord.Value;
+                }
+            }
+            else
+            {
+                return GetNonNullOccurrenceValue(lastWordOccurrence, lastDigitOccurrence);
+            }
         }
 
-        private int GetLastNumberWordIndex()
+        private int GetNonNullOccurrenceValue(NumberWordOccurrence? wordOccurrence, DigitOccurrence? digitOccurrence)
         {
-
+            if (wordOccurrence != null)
+            {
+                return wordOccurrence.NumberWord.Value;
+            }
+            else if (digitOccurrence != null)
+            {
+                return digitOccurrence.DigitValue;
+            }
+            else
+            {
+                throw new InvalidOperationException("Line contained neither a digit nor a word!");
+            }
         }
 
-        private int GetLastDigitIndex()
+        private NumberWordOccurrence? GetFirstNumberWordOccurrence()
         {
+            NumberWordOccurrence? firstOccurrence = null;
+            foreach (NumberWord numberWord in _numberWords)
+            {
+                if (_inputString.Contains(numberWord.Word))
+                {
+                    int wordIndex = _inputString.IndexOf(numberWord.Word);
+                    if (firstOccurrence == null)
+                    {
+                        firstOccurrence = new NumberWordOccurrence
+                        {
+                            NumberWord = numberWord,
+                            Index = wordIndex
+                        };
+                    }
+                    else
+                    {
+                        if (wordIndex < firstOccurrence.Index)
+                        {
+                            firstOccurrence = new NumberWordOccurrence
+                            {
+                                NumberWord = numberWord,
+                                Index = wordIndex
+                            };
+                        }
+                    }
+                }
+            }
 
+            return firstOccurrence;
+        }
+
+        private DigitOccurrence? GetFirstDigitOccurrence()
+        {
+            for (int i = 0; i < _inputString.Length; i++)
+            {
+                if (char.IsDigit(_inputString[i])) return new DigitOccurrence
+                {
+                    DigitChar = _inputString[i],
+                    Index = i
+                };
+            }
+
+            return null;
+        }
+
+        private NumberWordOccurrence? GetLastNumberWordOccurrence()
+        {
+            NumberWordOccurrence? lastOccurrence = null;
+            foreach (NumberWord numberWord in _numberWords)
+            {
+                if (_inputString.Contains(numberWord.Word))
+                {
+                    int wordIndex = _inputString.LastIndexOf(numberWord.Word);
+                    if (lastOccurrence == null)
+                    {
+                        lastOccurrence = new NumberWordOccurrence
+                        {
+                            NumberWord = numberWord,
+                            Index = wordIndex
+                        };
+                    }
+                    else
+                    {
+                        if (wordIndex > lastOccurrence.Index)
+                        {
+                            lastOccurrence = new NumberWordOccurrence
+                            {
+                                NumberWord = numberWord,
+                                Index = wordIndex
+                            };
+                        }
+                    }
+                }
+            }
+
+            return lastOccurrence;
+        }
+
+        private DigitOccurrence? GetLastDigitOccurrence()
+        {
+            for (int i = _inputString.Length - 1; i >= 0; i--)
+            {
+                if (char.IsDigit(_inputString[i])) return new DigitOccurrence
+                {
+                    DigitChar = _inputString[i],
+                    Index = i
+                };
+            }
+
+            return null;
         }
     }
 }
