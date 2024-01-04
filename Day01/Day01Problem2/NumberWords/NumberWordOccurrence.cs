@@ -1,4 +1,4 @@
-﻿namespace Day01Problem2
+﻿namespace Day01Problem2.NumberWords
 {
     public class NumberWordOccurrence
     {

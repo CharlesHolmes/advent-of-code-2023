@@ -5,13 +5,9 @@
         static async Task Main(string[] args)
         {
             string[] inputLines = await File.ReadAllLinesAsync(args[0]);
-            long sum = 0;
-            foreach (string line in inputLines)
-            {
-                sum += new InputLine(line).GetLineValue();
-            }
-
-            Console.Out.WriteLine($"Your overall sum is: {sum}");
+            var solver = new Solver();
+            long solution = solver.GetSolution(inputLines);
+            Console.Out.WriteLine($"Your overall sum is: {solution}");
         }
     }
 }
