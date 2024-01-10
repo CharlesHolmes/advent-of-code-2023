@@ -111,7 +111,7 @@
                             {
                                 Position = new Tile { i = current.Position.i - 1, j = current.Position.j },
                                 Direction = Direction.Up
-                            }); 
+                            });
                             break;
                     }
                     break;
@@ -138,7 +138,7 @@
                             {
                                 Position = new Tile { i = current.Position.i, j = current.Position.j + 1 },
                                 Direction = Direction.Right
-                            }); 
+                            });
                             nextBeamPositions.Add(new Beam
                             {
                                 Position = new Tile { i = current.Position.i, j = current.Position.j - 1 },

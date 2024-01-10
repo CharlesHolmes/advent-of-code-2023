@@ -1,15 +1,22 @@
-﻿namespace Day02Problem1
+﻿using System.Collections.Immutable;
+
+namespace Day02Problem1
 {
     public class Draw
     {
-        private readonly List<DrawnColor> _drawnColors = new List<DrawnColor>();
+        private ImmutableList<DrawnColor> _drawnColors { get; init; }
 
-        private Draw() { }
+        private Draw()
+        {
+            throw new InvalidOperationException($"Use the static {nameof(Parse)} method to create instances of {nameof(Draw)}");
+        }
 
         public static Draw Parse(string drawString)
         {
-            var result = new Draw();
-            result._drawnColors.AddRange(drawString.Split(',').Select(s => DrawnColor.Parse(s)));
+            var result = new Draw
+            {
+                _drawnColors = ImmutableList.CreateRange(drawString.Split(',').Select(s => DrawnColor.Parse(s)))
+            };
             return result;
         }
 

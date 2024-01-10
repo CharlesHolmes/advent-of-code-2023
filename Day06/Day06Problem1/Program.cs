@@ -24,7 +24,8 @@
             }
 
             long waysToWinProduct = 1;
-            foreach (Race race in raceList) {
+            foreach (Race race in raceList)
+            {
                 int waysToWin = 0;
                 for (int windupTime = 0; windupTime < race.Time; windupTime++)
                 {

@@ -41,7 +41,7 @@ namespace Day01Problem1.UnitTests
                 $"%USERPROFILE%\\Desktop\\AdventOfCode2023Inputs\\{projectName}");
             string inputFilePath = $"{inputFolderPath}\\input.txt";
             string resultFilePath = $"{inputFolderPath}\\result.txt";
-            if (File.Exists(inputFilePath) && File.Exists(resultFilePath)) 
+            if (File.Exists(inputFilePath) && File.Exists(resultFilePath))
             {
                 string[] input = await File.ReadAllLinesAsync(inputFilePath);
                 long expected = long.Parse((await File.ReadAllLinesAsync(resultFilePath))[0]);

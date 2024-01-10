@@ -50,7 +50,7 @@
 
         private static bool BordersSymbol(string[] inputLines, int i, int j)
         {
-            for (int idelta = -1; idelta <= 1; idelta++) 
+            for (int idelta = -1; idelta <= 1; idelta++)
             {
                 for (int jdelta = -1; jdelta <= 1; jdelta++)
                 {
@@ -59,7 +59,7 @@
                     if (j + jdelta < 0) continue;
                     if (j + jdelta >= inputLines[i + idelta].Length) continue;
                     char c = inputLines[i + idelta][j + jdelta];
-                    if (!char.IsDigit(c) && c != '.') 
+                    if (!char.IsDigit(c) && c != '.')
                         return true;
                 }
             }

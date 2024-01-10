@@ -52,7 +52,7 @@
 
         private static void MoveRockEast(char[][] input, int column, int row)
         {
-            while (column + 1< input[row].Length && input[row][column + 1] == '.')
+            while (column + 1 < input[row].Length && input[row][column + 1] == '.')
             {
                 input[row][column] = '.';
                 input[row][column + 1] = 'O';
@@ -127,7 +127,7 @@
         }
 
         private static void MoveWest(char[][] input)
-        { 
+        {
             for (int i = 0; i < input.Length; i++)
             {
                 int startAt = 0;

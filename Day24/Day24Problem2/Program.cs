@@ -49,7 +49,7 @@ namespace Day24Problem2
                 ArithExpr magic_vx = (ArithExpr)ctx.MkConst(ctx.MkSymbol(nameof(magic_vx)), ctx.MkIntSort());
                 ArithExpr magic_vy = (ArithExpr)ctx.MkConst(ctx.MkSymbol(nameof(magic_vy)), ctx.MkIntSort());
                 ArithExpr magic_vz = (ArithExpr)ctx.MkConst(ctx.MkSymbol(nameof(magic_vz)), ctx.MkIntSort());
-                for (int i = 0; i < stones.Count; i++) 
+                for (int i = 0; i < stones.Count; i++)
                 {
                     Hailstone stone = stones[i];
                     ArithExpr stone_px = ctx.MkInt(stone.x0);
@@ -75,7 +75,7 @@ namespace Day24Problem2
                 }
 
                 solver.Check();
-                
+
                 foreach (var solution in solver.Model.Consts.Where(c => c.Key.Name.ToString().StartsWith("magic_")))
                 {
                     Console.Out.WriteLine($"{solution.Key.Name}: {solution.Value}");

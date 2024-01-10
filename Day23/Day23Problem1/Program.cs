@@ -4,7 +4,7 @@
     {
         private static void FindPathLengths(string[] maze, int i, int j, bool[][] visited, int currentPathLength, ref int bestLength)
         {
-            if (i < 0 || i >= maze.Length || j < 0 || j >= maze[0].Length || maze[i][j] == '#' || visited[i][j]) 
+            if (i < 0 || i >= maze.Length || j < 0 || j >= maze[0].Length || maze[i][j] == '#' || visited[i][j])
                 return;
 
             if (i == maze.Length - 1)

@@ -1,8 +1,6 @@
-﻿using System.Text;
-
-namespace Day02Problem1
+﻿namespace Day02Problem1
 {
-    internal class Program
+    internal static class Program
     {
         static async Task Main(string[] args)
         {

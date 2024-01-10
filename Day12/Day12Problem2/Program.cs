@@ -44,7 +44,7 @@ namespace Day12Problem2
                 }
                 else if (nextChar == '?')
                 {
-                    result = HandleSpring(springs, groupings, nextGrouping) 
+                    result = HandleSpring(springs, groupings, nextGrouping)
                         + GetSpringWaysCount(springs.Substring(1), groupings);
                 }
                 else

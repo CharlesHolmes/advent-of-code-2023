@@ -75,7 +75,7 @@
         {
             var inputLines = await File.ReadAllLinesAsync(args[0]);
             long totalWays = 0;
-            for (int i = 0; i < inputLines.Length; i++) 
+            for (int i = 0; i < inputLines.Length; i++)
             {
                 string line = inputLines[i];
                 string[] halves = line.Split(' ');

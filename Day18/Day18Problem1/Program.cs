@@ -74,7 +74,7 @@
                     if (i > 0 && map[i][j] == '#' && map[i - 1][j] == '#') insideFigure = !insideFigure;
                 }
             }
-            
+
             Console.Out.WriteLine(insideCount);
         }
     }

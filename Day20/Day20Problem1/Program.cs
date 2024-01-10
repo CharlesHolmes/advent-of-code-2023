@@ -147,7 +147,7 @@
                 else if (moduleText.StartsWith('&'))
                 {
                     string moduleName = moduleText.Substring(1);
-                    _modules.Add(moduleName, new ConjunctionModule { Name = moduleName });                    
+                    _modules.Add(moduleName, new ConjunctionModule { Name = moduleName });
                 }
                 else if (moduleText.Equals("broadcaster"))
                 {

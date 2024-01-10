@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
-
-namespace Day08Problem1
+﻿namespace Day08Problem1
 {
     public class Node
     {

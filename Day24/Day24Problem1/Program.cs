@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Runtime.Intrinsics.X86;
 
 namespace Day24Problem1
 {

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace Day15Problem2
 {

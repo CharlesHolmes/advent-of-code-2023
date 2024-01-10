@@ -10,7 +10,7 @@
     internal class Program
     {
         static long PredictNext(Sequence sequence)
-        {            
+        {
             if (sequence.Derivative.Elements.All(x => x == 0))
             {
                 return sequence.Elements.First();

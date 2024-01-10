@@ -1,4 +1,4 @@
-﻿namespace Day02Problem1
+﻿namespace Day02Problem2
 {
     public class DrawnColor
     {
@@ -18,11 +18,6 @@
                 CubeColor = parts[1],
                 CubeCount = int.Parse(parts[0])
             };
-        }
-
-        public bool IsPossibleGivenMaxColorCounts(Dictionary<string, int> maxColorCounts)
-        {
-            return maxColorCounts.ContainsKey(CubeColor) && maxColorCounts[CubeColor] >= CubeCount;
         }
     }
 }

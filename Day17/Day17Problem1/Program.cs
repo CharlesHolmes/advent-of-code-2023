@@ -155,7 +155,7 @@ namespace Day17Problem1
             {
                 for (int j = 0; j < _totalHeatLoss[inputLines.Length - 1][inputLines[0].Length - 1][i].Length; j++)
                 {
-                    for (int k = 0; k < _totalHeatLoss[inputLines.Length - 1][inputLines[0].Length - 1][i][j].Length; k++) 
+                    for (int k = 0; k < _totalHeatLoss[inputLines.Length - 1][inputLines[0].Length - 1][i][j].Length; k++)
                     {
                         result = Math.Min(result, _totalHeatLoss[inputLines.Length - 1][inputLines[0].Length - 1][i][j][k]);
                     }

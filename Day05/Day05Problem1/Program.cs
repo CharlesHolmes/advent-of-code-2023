@@ -2,7 +2,7 @@
 {
     public class SourceDestRange
     {
-        public long SourceStart { get; set;}
+        public long SourceStart { get; set; }
         public long DestStart { get; set; }
         public long Length { get; set; }
     }

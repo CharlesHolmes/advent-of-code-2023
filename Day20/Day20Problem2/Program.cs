@@ -76,7 +76,7 @@
         {
             if (MarkedForCycleCheck)
             {
-                if (_lastPulseFromSource[pulse.Source] == PulseType.Low 
+                if (_lastPulseFromSource[pulse.Source] == PulseType.Low
                     && pulse.Type == PulseType.High
                     && !_foundCycle[pulse.Source])
                 {
@@ -193,7 +193,7 @@
                     {
                         _modules[moduleName].Destinations.Add(destinationModule);
                         if (destinationModule is ConjunctionModule conjunctionModule)
-                        {                         
+                        {
                             conjunctionModule.ConfigureSource(_modules[moduleName]);
                             if (destination == "hp")
                             {

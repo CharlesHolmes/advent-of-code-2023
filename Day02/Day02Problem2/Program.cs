@@ -1,6 +1,6 @@
 ﻿namespace Day02Problem2
 {
-    internal class Program
+    internal static class Program
     {
         static async Task Main(string[] args)
         {

@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Day14Problem1
+﻿namespace Day14Problem1
 {
     internal class Program
     {
@@ -51,7 +49,7 @@ namespace Day14Problem1
             {
                 int startAt = 0;
                 int rockToMoveRow;
-                while ((rockToMoveRow = FindRockInColumn(input, j, startAt)) >= 0) 
+                while ((rockToMoveRow = FindRockInColumn(input, j, startAt)) >= 0)
                 {
                     MoveRockNorth(input, j, rockToMoveRow);
                     startAt = rockToMoveRow + 1;

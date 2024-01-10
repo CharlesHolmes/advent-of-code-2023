@@ -43,7 +43,7 @@
                 new Coord { i = current.i, j = current.j - 1 },
                 new Coord { i = current.i, j = current.j + 1 }
             };
-            return potentials.Where(p => 
+            return potentials.Where(p =>
             {
                 int i = p.i % input.Length;
                 if (i < 0) i += input.Length;

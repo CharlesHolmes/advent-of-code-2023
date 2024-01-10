@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Day06Problem2
+﻿namespace Day06Problem2
 {
     internal class Program
     {

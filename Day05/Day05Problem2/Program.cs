@@ -32,7 +32,7 @@
         {
             var input = new Input();
             long[] seedRanges = inputLines[0].Split(' ', StringSplitOptions.RemoveEmptyEntries).Skip(1).Select(x => long.Parse(x)).ToArray();
-            for (int i = 0; i < seedRanges.Length; i+=2)
+            for (int i = 0; i < seedRanges.Length; i += 2)
             {
                 input.Seeds.Add(new SeedRange
                 {
@@ -82,7 +82,8 @@
             long lowestLocation = long.MaxValue;
             foreach (SeedRange seedRange in input.Seeds)
             {
-                for (long seed = seedRange.Start; seed <= seedRange.End; seed++) {
+                for (long seed = seedRange.Start; seed <= seedRange.End; seed++)
+                {
                     long number = seed;
                     string location = "seed";
                     while (location != "location")

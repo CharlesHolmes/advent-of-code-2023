@@ -39,7 +39,7 @@ namespace Day11Problem2
                     {
                         int increment = Math.Sign(galaxy2.Row - galaxy1.Row);
                         Func<int, int, bool> comparer = GetComparerForSign(increment);
-                        for (int row = galaxy1.Row; comparer(row, galaxy2.Row) ; row += increment)
+                        for (int row = galaxy1.Row; comparer(row, galaxy2.Row); row += increment)
                         {
                             if (emptyRows[row])
                             {
