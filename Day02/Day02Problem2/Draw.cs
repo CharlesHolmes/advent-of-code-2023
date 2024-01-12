@@ -4,11 +4,10 @@ namespace Day02Problem2
 {
     public class Draw
     {
-        public ImmutableList<DrawnColor> DrawnColors { get; private init; }
+        public ImmutableList<DrawnColor> DrawnColors { get; private init; } = ImmutableList.Create<DrawnColor>();
 
-        private Draw() 
+        private Draw()
         {
-            throw new InvalidOperationException($"Use the static {nameof(Parse)} method to create instances of {nameof(Draw)}");
         }
 
         public static Draw Parse(string drawString)

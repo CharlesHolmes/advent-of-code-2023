@@ -2,12 +2,11 @@
 {
     public class DrawnColor
     {
-        public string CubeColor { get; private init; }
+        public string CubeColor { get; private init; } = string.Empty;
         public int CubeCount { get; private init; }
 
         private DrawnColor()
         {
-            throw new InvalidOperationException($"Use the static {nameof(Parse)} method to create instances of {nameof(DrawnColor)}");
         }
 
         public static DrawnColor Parse(string drawnColorString)
