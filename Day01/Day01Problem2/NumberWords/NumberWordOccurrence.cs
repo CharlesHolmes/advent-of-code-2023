@@ -2,7 +2,7 @@
 {
     public class NumberWordOccurrence
     {
-        public NumberWord NumberWord { get; init; }
+        public NumberWord NumberWord { get; init; } = new NumberWord();
         public int Index { get; init; }
     }
 }

@@ -3,7 +3,7 @@ namespace Day01Problem1.UnitTests
     [TestClass]
     public class SolverTests
     {
-        private Solver _solver;
+        private Solver _solver = new();
 
         [TestInitialize()]
         public void Setup()
