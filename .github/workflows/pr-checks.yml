@@ -1,0 +1,38 @@
+name: Pull Request Checks
+
+on:
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    does-code-build-and-test:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            issues: read
+            checks: write
+            pull-requests: write
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup .NET 8.x
+              uses: actions/setup-dotnet@v3
+              with:
+                # Semantic version range syntax or exact version of a dotnet version
+                dotnet-version: '8.x'
+
+            - name: Restore NuGet packages
+              run: dotnet restore
+
+            - name: Build solution
+              run: dotnet build --no-restore
+                
+            - name: Test solution
+              run: dotnet test --no-build --logger "trx;LogFileName=test_results.trx"
+              
+            - name: Publish Test Results
+              uses: EnricoMi/publish-unit-test-result-action@v2
+              with:
+                files: "**/*.trx"
