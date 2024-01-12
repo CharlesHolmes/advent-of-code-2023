@@ -7,6 +7,11 @@ namespace Day01Problem2.NumberWords
         public string Word { get; init; }
         public int Value { get; init; }
 
+        public NumberWord()
+        {
+            Word = string.Empty;
+        }
+
         public NumberWord(string word, int val)
         {
             Word = word;

@@ -3,7 +3,7 @@ namespace Day02Problem2.UnitTests
     [TestClass]
     public class FullInputTest
     {
-        private Solver _solver;
+        private Solver _solver = new();
 
         [TestInitialize()]
         public void Setup()
