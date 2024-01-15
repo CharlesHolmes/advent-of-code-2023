@@ -4,37 +4,42 @@
     {
         public long GetSolution(string[] inputLines)
         {
-            // search for asterisks
-            var asteriskList = FindAsterisks(inputLines);
-
-            // for each asterisk, search around it for numbers
-            foreach (Asterisk asterisk in asteriskList)
+            var symbolList = FindSymbols(inputLines);
+            foreach (Symbol symbol in symbolList)
             {
-                PopulateNeighboringNumbers(asterisk, inputLines);
+                PopulateNeighboringNumbers(symbol, inputLines);
             }
 
-            // if there are exactly two numbers, multiply them and add to total
-            return asteriskList
-                .Where(x => x.NeighboringNumbers.Count == 2)
-                .Select(x => x.NeighboringNumbers.Aggregate(1L, (x, y) => x * y))
-                .Sum();
+            return symbolList
+                .Where(x => x.IsGear())
+                .Sum(x => x.GetGearRatio());
         }
 
-        private static List<Asterisk> FindAsterisks(string[] inputLines)
+        // TODO - introduce the notion of a grid and abstract finding and populating
+
+        private static List<Symbol> FindSymbols(string[] inputLines)
         {
-            var asteriskList = new List<Asterisk>();
+            var symbolList = new List<Symbol>();
             for (int i = 0; i < inputLines.Length; i++)
             {
                 for (int j = 0; j < inputLines[i].Length; j++)
                 {
-                    if (inputLines[i][j] == '*') asteriskList.Add(new Asterisk { i = i, j = j });
+                    if (inputLines[i][j] != '.' && !char.IsDigit(inputLines[i][j]))
+                    {
+                        symbolList.Add(new Symbol
+                        {
+                            i = i,
+                            j = j,
+                            Character = inputLines[i][j]
+                        });
+                    }
                 }
             }
 
-            return asteriskList;
+            return symbolList;
         }
 
-        private static void PopulateNeighboringNumbers(Asterisk asterisk, string[] inputLines)
+        private static void PopulateNeighboringNumbers(Symbol symbol, string[] inputLines)
         {
             // find surrounding numbers
             var visited = new HashSet<Coord>();
@@ -42,12 +47,12 @@
             {
                 for (int jdelta = -1; jdelta <= 1; jdelta++)
                 {
-                    if (asterisk.i + idelta < 0) continue;
-                    else if (asterisk.j + jdelta < 0) continue;
-                    else if (asterisk.i + idelta >= inputLines.Length) continue;
-                    else if (asterisk.j + jdelta >= inputLines[asterisk.i + idelta].Length) continue;
+                    if (symbol.i + idelta < 0) continue;
+                    else if (symbol.j + jdelta < 0) continue;
+                    else if (symbol.i + idelta >= inputLines.Length) continue;
+                    else if (symbol.j + jdelta >= inputLines[symbol.i + idelta].Length) continue;
 
-                    var coord = new Coord { i = asterisk.i + idelta, j = asterisk.j + jdelta };
+                    var coord = new Coord { i = symbol.i + idelta, j = symbol.j + jdelta };
                     if (visited.Contains(coord)) continue;
                     visited.Add(coord);
                     char c = inputLines[coord.i][coord.j];
@@ -80,7 +85,7 @@
                             number += digit;
                         }
 
-                        asterisk.NeighboringNumbers.Add(number);
+                        symbol.NeighboringNumbers.Add(number);
                     }
                 }
             }
