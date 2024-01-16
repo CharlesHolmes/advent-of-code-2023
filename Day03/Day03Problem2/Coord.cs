@@ -2,7 +2,7 @@
 {
     public struct Coord
     {
-        public int i;
-        public int j;
+        public int rowIndex { get; init; }
+        public int columnIndex { get; init; }
     }
 }
