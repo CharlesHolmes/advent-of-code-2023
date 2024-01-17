@@ -4,8 +4,7 @@ namespace Day03Problem2
 {
     public class Symbol
     {
-        public int RowIndex { get; init; }
-        public int ColumnIndex { get; init; }
+        public Coord Location { get; init; }
         public char Character { get; init; }
         public ImmutableList<int> NeighboringNumbers { get; init; } = ImmutableList.Create<int>();
         public bool IsGear() => Character == '*' && NeighboringNumbers.Count == 2;
