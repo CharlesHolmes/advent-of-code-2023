@@ -4,19 +4,11 @@
     {
         public long GetSolution(string[] inputLines)
         {
-            var cardDictionary = new Dictionary<int, Card>();
-            foreach (string cardLine in inputLines)
-            {
-                var card = Card.ParseCard(cardLine);
-                cardDictionary.Add(card.Id, card);
-            }
+            var cardsById = inputLines
+                .Select(line => Card.ParseCard(line))
+                .ToDictionary(card => card.Id);
 
-            var toProcess = new Queue<Card>();
-            foreach (Card card in cardDictionary.Values)
-            {
-                toProcess.Enqueue(card);
-            }
-
+            var toProcess = new Queue<Card>(cardsById.Values);
             long totalCardCount = 0;
             while (toProcess.Any())
             {
@@ -24,7 +16,7 @@
                 totalCardCount++;
                 for (int i = 1; i <= current.WinnerCount; i++)
                 {
-                    toProcess.Enqueue(cardDictionary[current.Id + i]);
+                    toProcess.Enqueue(cardsById[current.Id + i]);
                 }
             }
 

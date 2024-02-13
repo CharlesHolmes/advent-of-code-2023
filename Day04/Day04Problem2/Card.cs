@@ -1,11 +1,19 @@
-﻿namespace Day04Problem2
+﻿using System.Collections.Immutable;
+
+namespace Day04Problem2
 {
     public class Card
     {
-        public int Id { get; set; }
-        public HashSet<int> WinningNumbers { get; } = new HashSet<int>();
-        public List<int> CardNumbers { get; } = new List<int>();
-        public int WinnerCount { get; set; }
+        public int Id { get; private set; }
+        public ImmutableHashSet<int> WinningNumbers { get; private set; }
+        public ImmutableList<int> CardNumbers { get; private set; }
+        public int WinnerCount { get; private set; }
+
+        private Card()
+        {
+            WinningNumbers = ImmutableHashSet<int>.Empty;
+            CardNumbers = ImmutableList<int>.Empty;
+        }
 
         public static Card ParseCard(string cardLine)
         {
@@ -16,28 +24,15 @@
             card.Id = int.Parse(cardIdString);
             string justNumbers = idAndNumbers[1];
             string[] numberHalves = justNumbers.Split('|');
-            string allWinnerString = numberHalves[0];
-            foreach (string winnerString in allWinnerString.Split(' ', StringSplitOptions.RemoveEmptyEntries))
-            {
-                card.WinningNumbers.Add(int.Parse(winnerString));
-            }
-
-            string allCardNumberString = numberHalves[1];
-            foreach (string cardNumberString in allCardNumberString.Split(' ', StringSplitOptions.RemoveEmptyEntries))
-            {
-                card.CardNumbers.Add(int.Parse(cardNumberString));
-            }
-
-            int score = 0;
-            foreach (int number in card.CardNumbers)
-            {
-                if (card.WinningNumbers.Contains(number))
-                {
-                    score++;
-                }
-            }
-
-            card.WinnerCount = score;
+            string allWinningNumbersString = numberHalves[0];
+            card.WinningNumbers = ImmutableHashSet.CreateRange(allWinningNumbersString
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(winnerString => int.Parse(winnerString)));
+            string allCardNumbersString = numberHalves[1];
+            card.CardNumbers = ImmutableList.CreateRange(allCardNumbersString
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(cardNumberString => int.Parse(cardNumberString)));
+            card.WinnerCount = card.CardNumbers.Count(cardNumber => card.WinningNumbers.Contains(cardNumber));
             return card;
         }
     }
