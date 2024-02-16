@@ -1,89 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day05Problem2
+﻿namespace Day05Problem2
 {
-    public class Solver
+    public partial class Solver
     {
-        public class SourceDestRange
-        {
-            public long SourceStart { get; set; }
-            public long DestStart { get; set; }
-            public long Length { get; set; }
-        }
-
-        public class Map
-        {
-            public string SourceName { get; set; } = string.Empty;
-            public string DestName { get; set; } = string.Empty;
-            public List<SourceDestRange> Ranges { get; } = new List<SourceDestRange>();
-        }
-
-        public class SeedRange
-        {
-            public long Start { get; set; }
-            public long End { get; set; }
-        }
-
-        public class Input
-        {
-            public List<SeedRange> Seeds { get; } = new List<SeedRange>();
-            public Dictionary<string, Map> Maps { get; } = new Dictionary<string, Map>();
-        }
-
-        private static Input ParseInput(string[] inputLines)
-        {
-            var input = new Input();
-            long[] seedRanges = inputLines[0].Split(' ', StringSplitOptions.RemoveEmptyEntries).Skip(1).Select(x => long.Parse(x)).ToArray();
-            for (int i = 0; i < seedRanges.Length; i += 2)
-            {
-                input.Seeds.Add(new SeedRange
-                {
-                    Start = seedRanges[i],
-                    End = seedRanges[i] + seedRanges[i + 1] - 1
-                });
-            }
-
-            var map = new Map();
-            foreach (string line in inputLines.Skip(2))
-            {
-                if (line.Length == 0)
-                {
-                    input.Maps.Add(map.SourceName, map);
-                    map = new Map();
-                }
-                else
-                {
-                    if (line.Contains("-to-"))
-                    {
-                        string[] sourceDestArr = line.Split(' ', StringSplitOptions.RemoveEmptyEntries)[0]
-                            .Split("-to-", StringSplitOptions.RemoveEmptyEntries);
-                        map.SourceName = sourceDestArr[0];
-                        map.DestName = sourceDestArr[1];
-                    }
-                    else if (line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length == 3)
-                    {
-                        string[] numberStringArr = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                        map.Ranges.Add(new SourceDestRange
-                        {
-                            DestStart = long.Parse(numberStringArr[0]),
-                            SourceStart = long.Parse(numberStringArr[1]),
-                            Length = long.Parse(numberStringArr[2])
-                        });
-                    }
-                }
-            }
-
-            input.Maps.Add(map.SourceName, map);
-            return input;
-        }
-
         public long GetSolution(string[] inputLines)
         {
-            var input = ParseInput(inputLines);
+            var input = Input.ParseInput(inputLines);
             long lowestLocation = long.MaxValue;
             foreach (SeedRange seedRange in input.Seeds)
             {
