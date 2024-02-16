@@ -2,72 +2,75 @@
 
 namespace Day05Problem2
 {
-    public partial class Solver
+    public class Input
     {
-        public class Input
+        public ImmutableList<SeedRange> Seeds { get; private set; }
+        public ImmutableDictionary<string, Map> MapsBySource { get; private set; }
+        public ImmutableDictionary<string, Map> MapsByDestination { get; private set; }
+
+        private Input()
         {
-            public ImmutableList<SeedRange> Seeds { get; private set; }
-            public ImmutableDictionary<string, Map> Maps { get; private set; }
+            Seeds = ImmutableList<SeedRange>.Empty;
+            MapsBySource = ImmutableDictionary<string, Map>.Empty;
+            MapsByDestination = ImmutableDictionary<string, Map>.Empty;
+        }
 
-            private Input()
+        public static Input ParseInput(string[] inputLines)
+        {
+            var input = new Input();
+            long[] seedRanges = inputLines[0].Split(' ', StringSplitOptions.RemoveEmptyEntries).Skip(1).Select(x => long.Parse(x)).ToArray();
+            var seedRangesBuilder = ImmutableList.CreateBuilder<SeedRange>();
+            for (int i = 0; i < seedRanges.Length; i += 2)
             {
-                Seeds = ImmutableList<SeedRange>.Empty;
-                Maps = ImmutableDictionary<string, Map>.Empty;
+                seedRangesBuilder.Add(new SeedRange
+                {
+                    Start = seedRanges[i],
+                    End = seedRanges[i] + seedRanges[i + 1] - 1
+                });
             }
 
-            public static Input ParseInput(string[] inputLines)
+            input.Seeds = seedRangesBuilder.ToImmutable();
+
+            var allMapsBySourceBuilder = ImmutableDictionary.CreateBuilder<string, Map>();
+            var allMapsByDestinationBuilder = ImmutableDictionary.CreateBuilder<string, Map>();
+            var mapBuilder = Map.CreateBuilder();
+            foreach (string line in inputLines.Skip(2))
             {
-                var input = new Input();
-                long[] seedRanges = inputLines[0].Split(' ', StringSplitOptions.RemoveEmptyEntries).Skip(1).Select(x => long.Parse(x)).ToArray();
-                var seedRangesBuilder = ImmutableList.CreateBuilder<SeedRange>();
-                for (int i = 0; i < seedRanges.Length; i += 2)
+                if (line.Length == 0)
                 {
-                    seedRangesBuilder.Add(new SeedRange
-                    {
-                        Start = seedRanges[i],
-                        End = seedRanges[i] + seedRanges[i + 1] - 1
-                    });
+                    var built = mapBuilder.Build();
+                    allMapsBySourceBuilder.Add(built.SourceName, built);
+                    allMapsByDestinationBuilder.Add(built.DestName, built);
+                    mapBuilder = Map.CreateBuilder();
                 }
-
-                input.Seeds = seedRangesBuilder.ToImmutable();
-
-                var allMapsBuilder = ImmutableDictionary.CreateBuilder<string, Map>();
-                var mapBuilder = Map.CreateBuilder();
-                foreach (string line in inputLines.Skip(2))
+                else
                 {
-                    if (line.Length == 0)
+                    if (line.Contains("-to-"))
                     {
-                        var built = mapBuilder.Build();
-                        allMapsBuilder.Add(built.SourceName, built);
-                        mapBuilder = Map.CreateBuilder();
+                        string[] sourceDestArr = line.Split(' ', StringSplitOptions.RemoveEmptyEntries)[0]
+                            .Split("-to-", StringSplitOptions.RemoveEmptyEntries);
+                        mapBuilder.SetSourceName(sourceDestArr[0]);
+                        mapBuilder.SetDestName(sourceDestArr[1]);
                     }
-                    else
+                    else if (line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length == 3)
                     {
-                        if (line.Contains("-to-"))
+                        string[] numberStringArr = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        mapBuilder.AddRange(new SourceDestRange
                         {
-                            string[] sourceDestArr = line.Split(' ', StringSplitOptions.RemoveEmptyEntries)[0]
-                                .Split("-to-", StringSplitOptions.RemoveEmptyEntries);
-                            mapBuilder.SetSourceName(sourceDestArr[0]);
-                            mapBuilder.SetDestName(sourceDestArr[1]);
-                        }
-                        else if (line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length == 3)
-                        {
-                            string[] numberStringArr = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                            mapBuilder.AddRange(new SourceDestRange
-                            {
-                                DestStart = long.Parse(numberStringArr[0]),
-                                SourceStart = long.Parse(numberStringArr[1]),
-                                Length = long.Parse(numberStringArr[2])
-                            });
-                        }
+                            DestStart = long.Parse(numberStringArr[0]),
+                            SourceStart = long.Parse(numberStringArr[1]),
+                            Length = long.Parse(numberStringArr[2])
+                        });
                     }
                 }
-
-                var map = mapBuilder.Build();
-                allMapsBuilder.Add(map.SourceName, map);
-                input.Maps = allMapsBuilder.ToImmutable();
-                return input;
             }
+
+            var map = mapBuilder.Build();
+            allMapsBySourceBuilder.Add(map.SourceName, map);
+            input.MapsBySource = allMapsBySourceBuilder.ToImmutable();
+            allMapsByDestinationBuilder.Add(map.DestName, map);
+            input.MapsByDestination = allMapsByDestinationBuilder.ToImmutable();
+            return input;
         }
     }
 }
