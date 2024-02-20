@@ -2,7 +2,7 @@
 {
     public class Play
     {
-        public Hand Hand { get; set; }
-        public long Bid { get; set; }
+        public Hand Hand { get; init; } = new Hand();
+        public long Bid { get; init; }
     }
 }
