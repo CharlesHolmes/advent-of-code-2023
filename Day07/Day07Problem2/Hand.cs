@@ -1,7 +1,9 @@
 ﻿namespace Day07Problem2
 {
-    public class Hand : IComparable<Hand>
+    public class Hand
     {
+        public static readonly HandComparer Comparer = new HandComparer();
+
         private readonly Dictionary<char, int> _cardValues = new Dictionary<char, int>
         {
             { 'J', 1 },
@@ -19,7 +21,8 @@
             { 'A', 14 }
         };
 
-        public string Cards { get; set; }
+        public string Cards { get; init; } = string.Empty;
+
         public HandType GetHandType()
         {
             var cardCount = new Dictionary<char, int>();
@@ -133,23 +136,32 @@
             }
         }
 
-        public int CompareTo(Hand other)
+        public class HandComparer : IComparer<Hand>
         {
-            int handTypeDiff = GetHandType() - other.GetHandType();
-            if (handTypeDiff != 0)
+            public int Compare(Hand? x, Hand? y)
             {
-                return handTypeDiff;
-            }
-            else
-            {
-                for (int i = 0; i < Cards.Length; i++)
+                if (x == null && y == null) return 0;
+                else if (x == null) return -1;
+                else if (y == null) return 1;
+                else
                 {
-                    int cardDiff = _cardValues[Cards[i]] - _cardValues[other.Cards[i]];
-                    if (cardDiff != 0) return cardDiff;
+                    int handTypeDiff = x.GetHandType() - y.GetHandType();
+                    if (handTypeDiff != 0)
+                    {
+                        return handTypeDiff;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < x.Cards.Length; i++)
+                        {
+                            int cardDiff = x._cardValues[x.Cards[i]] - x._cardValues[y.Cards[i]];
+                            if (cardDiff != 0) return cardDiff;
+                        }
+                    }
+
+                    return 0;
                 }
             }
-
-            return 0;
         }
     }
 }

@@ -18,7 +18,7 @@
                 });
             }
 
-            playList = playList.OrderBy(p => p.Hand).ToList();
+            playList = playList.OrderBy(p => p.Hand, Hand.Comparer).ToList();
             long totalWinnings = 0;
             long rank = 1;
             foreach (Play play in playList)
