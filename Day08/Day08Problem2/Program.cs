@@ -1,10 +1,12 @@
 ﻿namespace Day08Problem2
 {
-    internal class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var inputLines = await File.ReadAllLinesAsync(args[0]);
+            var solver = new Solver();
+            Console.Out.WriteLine(solver.GetSolution(inputLines));
         }
     }
 }
