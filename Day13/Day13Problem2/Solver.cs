@@ -1,4 +1,4 @@
-﻿namespace Day13Problem1
+﻿namespace Day13Problem2
 {
     public class Solver
     {
@@ -12,7 +12,7 @@
                 int? rowsAboveSplit = GetCountOfRowsAboveHorizontalSplitOrDefault(grid);
                 if (columnsLeftOfSplit.HasValue && rowsAboveSplit.HasValue)
                 {
-                    throw new ArgumentException("Input must always contain exactly one valid reflection.  This input has at least two.");
+                    throw new ArgumentException("Input must always contain exactly one valid reflection after accounting for the smudge.  This input has at least two.");
                 }
                 else if (columnsLeftOfSplit.HasValue)
                 {
@@ -24,7 +24,7 @@
                 }
                 else
                 {
-                    throw new ArgumentException("Input must always contain exactly one valid reflection.  This input has none.");
+                    throw new ArgumentException("Input must always contain exactly one valid reflection after accounting for the smudge.  This input has none.");
                 }
             }
 
@@ -61,21 +61,21 @@
         {
             for (int j = 0; j + 1 < grid[0].Length; j++)
             {
-                bool allMatch = true;
+                int smudges = 0;
                 int left = j;
                 int right = j + 1;
                 while (left >= 0 && right < grid[0].Length)
                 {
-                    for (int i = 0; allMatch && i < grid.Length; i++)
+                    for (int i = 0; smudges <= 1 && i < grid.Length; i++)
                     {
-                        if (grid[i][left] != grid[i][right]) allMatch = false;
+                        if (grid[i][left] != grid[i][right]) smudges++;
                     }
 
                     left--;
                     right++;
                 }
 
-                if (allMatch) return j + 1;
+                if (smudges == 1) return j + 1;
             }
 
             return null;
@@ -85,21 +85,21 @@
         {
             for (int i = 0; i + 1 < grid.Length; i++)
             {
-                bool allMatch = true;
+                int smudges = 0;
                 int up = i;
                 int down = i + 1;
                 while (up >= 0 && down < grid.Length)
                 {
-                    for (int j = 0; allMatch && j < grid[i].Length; j++)
+                    for (int j = 0; smudges <= 1 && j < grid[i].Length; j++)
                     {
-                        if (grid[up][j] != grid[down][j]) allMatch = false;
+                        if (grid[up][j] != grid[down][j]) smudges++;
                     }
 
                     up--;
                     down++;
                 }
 
-                if (allMatch) return i + 1;
+                if (smudges == 1) return i + 1;
             }
 
             return null;
