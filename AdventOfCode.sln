@@ -211,6 +211,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day13Problem2.UnitTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day14Problem1.UnitTests", "Day14\Day14Problem1.UnitTests\Day14Problem1.UnitTests.csproj", "{5DAD1CAD-D641-4687-ACB1-D8691B0ABFBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day14Problem2.UnitTests", "Day14Problem2.UnitTests\Day14Problem2.UnitTests.csproj", "{A9D01CB8-63FB-4F3B-B0E0-74D710A47CE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -521,6 +523,10 @@ Global
 		{5DAD1CAD-D641-4687-ACB1-D8691B0ABFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DAD1CAD-D641-4687-ACB1-D8691B0ABFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DAD1CAD-D641-4687-ACB1-D8691B0ABFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9D01CB8-63FB-4F3B-B0E0-74D710A47CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9D01CB8-63FB-4F3B-B0E0-74D710A47CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9D01CB8-63FB-4F3B-B0E0-74D710A47CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9D01CB8-63FB-4F3B-B0E0-74D710A47CE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -602,6 +608,7 @@ Global
 		{FC2BBB9D-4A8D-4C2E-9CDF-DBA64A75CF5C} = {AD3DFB03-AFA7-4B3D-9D25-E85999D1A978}
 		{505C39E7-929C-4CFF-B729-75D73FB25377} = {AD3DFB03-AFA7-4B3D-9D25-E85999D1A978}
 		{5DAD1CAD-D641-4687-ACB1-D8691B0ABFBC} = {946C5B80-E5E4-4393-9A5D-D87CDEAEDCFF}
+		{A9D01CB8-63FB-4F3B-B0E0-74D710A47CE9} = {946C5B80-E5E4-4393-9A5D-D87CDEAEDCFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C4BE144-821F-4FBC-8408-105B9CFB2711}
