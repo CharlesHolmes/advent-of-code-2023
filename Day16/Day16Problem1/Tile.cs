@@ -1,8 +1,8 @@
 ﻿namespace Day16Problem1
 {
-    public struct Tile
+    public readonly struct Tile
     {
-        public int i;
-        public int j;
+        public int RowIndex { get; init; }
+        public int ColumnIndex { get; init; }
     }
 }

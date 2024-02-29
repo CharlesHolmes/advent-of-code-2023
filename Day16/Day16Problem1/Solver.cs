@@ -6,7 +6,7 @@
         {
             var beams = new Queue<Beam>([ new Beam
             {
-                Position = new Tile { i = 0, j = 0 },
+                Position = new Tile { RowIndex = 0, ColumnIndex = 0 },
                 Direction = Direction.Right
             }]);
 
@@ -18,7 +18,7 @@
             while (beams.Any())
             {
                 var current = beams.Dequeue();
-                char tileContents = inputLines[current.Position.i][current.Position.j];
+                char tileContents = inputLines[current.Position.RowIndex][current.Position.ColumnIndex];
                 List<Beam> allNextBeams = GetNextBeamPositions(current, tileContents);
                 List<Beam> possibleNextBeams = FilterPositionsOutsideGrid(inputLines, allNextBeams);
                 foreach (Beam beam in possibleNextBeams)
@@ -48,10 +48,10 @@
         private static List<Beam> FilterPositionsOutsideGrid(string[] inputLines, List<Beam> nextBeams)
         {
             return nextBeams
-                .Where(beam => beam.Position.i >= 0
-                    && beam.Position.i < inputLines.Length
-                    && beam.Position.j >= 0
-                    && beam.Position.j < inputLines[0].Length)
+                .Where(beam => beam.Position.RowIndex >= 0
+                    && beam.Position.RowIndex < inputLines.Length
+                    && beam.Position.ColumnIndex >= 0
+                    && beam.Position.ColumnIndex < inputLines[0].Length)
                 .ToList();
         }
 
@@ -66,28 +66,28 @@
                         case Direction.Right:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j + 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex + 1 },
                                 Direction = Direction.Right
                             });
                             break;
                         case Direction.Down:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i + 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex + 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Down
                             });
                             break;
                         case Direction.Left:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j - 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex - 1 },
                                 Direction = Direction.Left
                             });
                             break;
                         case Direction.Up:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i - 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex - 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Up
                             });
                             break;
@@ -99,14 +99,14 @@
                         case Direction.Right:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j + 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex + 1 },
                                 Direction = Direction.Right
                             });
                             break;
                         case Direction.Left:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j - 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex - 1 },
                                 Direction = Direction.Left
                             });
                             break;
@@ -114,12 +114,12 @@
                         case Direction.Up:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j + 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex + 1 },
                                 Direction = Direction.Right
                             });
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j - 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex - 1 },
                                 Direction = Direction.Left
                             });
                             break;
@@ -131,14 +131,14 @@
                         case Direction.Down:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i + 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex + 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Down
                             });
                             break;
                         case Direction.Up:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i - 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex - 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Up
                             });
                             break;
@@ -146,12 +146,12 @@
                         case Direction.Left:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i - 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex - 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Up
                             });
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i + 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex + 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Down
                             });
                             break;
@@ -163,28 +163,28 @@
                         case Direction.Right:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i - 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex - 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Up
                             });
                             break;
                         case Direction.Down:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j - 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex - 1 },
                                 Direction = Direction.Left
                             });
                             break;
                         case Direction.Left:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i + 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex + 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Down
                             });
                             break;
                         case Direction.Up:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j + 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex + 1 },
                                 Direction = Direction.Right
                             });
                             break;
@@ -196,28 +196,28 @@
                         case Direction.Left:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i - 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex - 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Up
                             });
                             break;
                         case Direction.Up:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j - 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex - 1 },
                                 Direction = Direction.Left
                             });
                             break;
                         case Direction.Right:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i + 1, j = current.Position.j },
+                                Position = new Tile { RowIndex = current.Position.RowIndex + 1, ColumnIndex = current.Position.ColumnIndex },
                                 Direction = Direction.Down
                             });
                             break;
                         case Direction.Down:
                             nextBeamPositions.Add(new Beam
                             {
-                                Position = new Tile { i = current.Position.i, j = current.Position.j + 1 },
+                                Position = new Tile { RowIndex = current.Position.RowIndex, ColumnIndex = current.Position.ColumnIndex + 1 },
                                 Direction = Direction.Right
                             });
                             break;
