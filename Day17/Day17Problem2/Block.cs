@@ -1,4 +1,4 @@
-﻿namespace Day17Problem1
+﻿namespace Day17Problem2
 {
     public readonly struct Block
     {

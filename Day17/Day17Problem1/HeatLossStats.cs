@@ -1,6 +1,6 @@
 ﻿namespace Day17Problem1
 {
-    internal class HeatLossStats
+    public class HeatLossStats
     {
         public int[][] StepHeatLoss { get; init; }
         public long[][][][][] TotalHeatLoss { get; init; }

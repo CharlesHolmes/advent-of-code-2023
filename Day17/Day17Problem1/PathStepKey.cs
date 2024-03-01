@@ -1,6 +1,6 @@
 ﻿namespace Day17Problem1
 {
-    public struct PathStepKey
+    public readonly struct PathStepKey
     {
         public Block Position { get; init; }
         public Direction LastMove { get; init; }
