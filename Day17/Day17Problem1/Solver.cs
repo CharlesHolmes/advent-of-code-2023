@@ -6,29 +6,29 @@
         {
             var heatLossStats = new HeatLossStats(inputLines);
             // start from top left (using queue)
-            var origin = new PathStepKey { Position = new Block { i = 0, j = 0 }, LastMove = Direction.Right };
-            heatLossStats.TotalHeatLoss[origin.Position.i][origin.Position.j][(int)origin.LastMove][(int)origin.SecondLastMove][(int)origin.ThirdLastMove] = 0;
+            var origin = new PathStepKey { Position = new Block { RowIndex = 0, ColumnIndex = 0 }, LastMove = Direction.Right };
+            heatLossStats.TotalHeatLoss[origin.Position.RowIndex][origin.Position.ColumnIndex][(int)origin.LastMove][(int)origin.SecondLastMove][(int)origin.ThirdLastMove] = 0;
             var toEvaluate = new Queue<PathStepKey>();
             toEvaluate.Enqueue(origin);
             while (toEvaluate.Any())
             {
                 var current = toEvaluate.Dequeue();
-                if (current.Position.i > 0 && current.LastMove != Direction.Down)
+                if (current.Position.RowIndex > 0 && current.LastMove != Direction.Down)
                 {
                     AttemptExploreAdjacent(current, Direction.Up, toEvaluate, heatLossStats);
                 }
 
-                if (current.Position.j > 0 && current.LastMove != Direction.Right)
+                if (current.Position.ColumnIndex > 0 && current.LastMove != Direction.Right)
                 {
                     AttemptExploreAdjacent(current, Direction.Left, toEvaluate, heatLossStats);
                 }
 
-                if (current.Position.i < inputLines.Length - 1 && current.LastMove != Direction.Up)
+                if (current.Position.RowIndex < inputLines.Length - 1 && current.LastMove != Direction.Up)
                 {
                     AttemptExploreAdjacent(current, Direction.Down, toEvaluate, heatLossStats);
                 }
 
-                if (current.Position.j < inputLines[current.Position.i].Length - 1 && current.LastMove != Direction.Left)
+                if (current.Position.ColumnIndex < inputLines[current.Position.RowIndex].Length - 1 && current.LastMove != Direction.Left)
                 {
                     AttemptExploreAdjacent(current, Direction.Right, toEvaluate, heatLossStats);
                 }
@@ -58,9 +58,9 @@
 
         private bool BlockAlreadyHasLowerHeatLoss(PathStepKey current, PathStepKey next, HeatLossStats heatLossStats)
         {
-            long nextTotal = heatLossStats.TotalHeatLoss[next.Position.i][next.Position.j][(int)next.LastMove][(int)next.SecondLastMove][(int)next.ThirdLastMove];
-            long currentTotal = heatLossStats.TotalHeatLoss[current.Position.i][current.Position.j][(int)current.LastMove][(int)current.SecondLastMove][(int)current.ThirdLastMove];
-            return nextTotal <= currentTotal + heatLossStats.StepHeatLoss[next.Position.i][next.Position.j];
+            long nextTotal = heatLossStats.TotalHeatLoss[next.Position.RowIndex][next.Position.ColumnIndex][(int)next.LastMove][(int)next.SecondLastMove][(int)next.ThirdLastMove];
+            long currentTotal = heatLossStats.TotalHeatLoss[current.Position.RowIndex][current.Position.ColumnIndex][(int)current.LastMove][(int)current.SecondLastMove][(int)current.ThirdLastMove];
+            return nextTotal <= currentTotal + heatLossStats.StepHeatLoss[next.Position.RowIndex][next.Position.ColumnIndex];
         }
 
         private PathStepKey GetNext(PathStepKey current, Direction move)
@@ -84,7 +84,7 @@
 
             return new PathStepKey
             {
-                Position = new Block { i = current.Position.i + iDelta, j = current.Position.j + jDelta },
+                Position = new Block { RowIndex = current.Position.RowIndex + iDelta, ColumnIndex = current.Position.ColumnIndex + jDelta },
                 LastMove = move,
                 SecondLastMove = current.LastMove,
                 ThirdLastMove = current.SecondLastMove
@@ -97,8 +97,8 @@
             var nextStep = GetNext(current, move);
             if (BlockAlreadyHasLowerHeatLoss(current, nextStep, heatLossStats)) return;
 
-            long currentTotal = heatLossStats.TotalHeatLoss[current.Position.i][current.Position.j][(int)current.LastMove][(int)current.SecondLastMove][(int)current.ThirdLastMove];
-            heatLossStats.TotalHeatLoss[nextStep.Position.i][nextStep.Position.j][(int)nextStep.LastMove][(int)nextStep.SecondLastMove][(int)nextStep.ThirdLastMove] = currentTotal + heatLossStats.StepHeatLoss[nextStep.Position.i][nextStep.Position.j];
+            long currentTotal = heatLossStats.TotalHeatLoss[current.Position.RowIndex][current.Position.ColumnIndex][(int)current.LastMove][(int)current.SecondLastMove][(int)current.ThirdLastMove];
+            heatLossStats.TotalHeatLoss[nextStep.Position.RowIndex][nextStep.Position.ColumnIndex][(int)nextStep.LastMove][(int)nextStep.SecondLastMove][(int)nextStep.ThirdLastMove] = currentTotal + heatLossStats.StepHeatLoss[nextStep.Position.RowIndex][nextStep.Position.ColumnIndex];
             nextSteps.Enqueue(nextStep);
         }
     }

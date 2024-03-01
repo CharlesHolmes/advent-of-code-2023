@@ -2,7 +2,7 @@
 {
     public struct Block
     {
-        public int i;
-        public int j;
+        public int RowIndex { get; init; }
+        public int ColumnIndex { get; init; }
     }
 }
