@@ -39,7 +39,7 @@
                 }
                 else
                 {
-                    throw new Exception("What is this?");
+                    throw new ArgumentException($"Unrecognized module text prefix: {moduleText}", nameof(inputLines));
                 }
             }
         }
@@ -53,7 +53,7 @@
                 string[] destinations = halves[1].Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string destination in destinations)
                 {
-                    if (_modules.TryGetValue(destination, out Module destinationModule))
+                    if (_modules.TryGetValue(destination, out Module? destinationModule))
                     {
                         _modules[moduleName].Destinations.Add(destinationModule);
                         if (destinationModule is ConjunctionModule conjunctionModule)
@@ -91,7 +91,7 @@
                     _highPulseCount++;
                 }
 
-                List<Pulse> output = current.Destination.HandlePulse(current);
+                List<Pulse> output = current.Destination!.HandlePulse(current);
                 foreach (Pulse pulse in output)
                 {
                     pulsesToProcess.Enqueue(pulse);

@@ -2,33 +2,22 @@
 {
     public class ConjunctionModule : Module
     {
-        private readonly Dictionary<Module, PulseType> _lastPulseFromSource = new Dictionary<Module, PulseType>();
+        private readonly Dictionary<Module, PulseType> _lastPulseFromSource = [];
 
         public override List<Pulse> HandlePulse(Pulse pulse)
         {
-            _lastPulseFromSource[pulse.Source] = pulse.Type;
-            PulseType typeToSend;
-            if (_lastPulseFromSource.Values.All(p => p == PulseType.High))
-            {
-                typeToSend = PulseType.Low;
-            }
-            else
-            {
-                typeToSend = PulseType.High;
-            }
-
-            var result = new List<Pulse>();
-            foreach (Module destination in Destinations)
-            {
-                result.Add(new Pulse
+            _lastPulseFromSource[pulse.Source!] = pulse.Type;
+            PulseType typeToSend = _lastPulseFromSource.Values.All(p => p == PulseType.High)
+                ? PulseType.Low
+                : PulseType.High;
+            return Destinations
+                .Select(dest => new Pulse
                 {
                     Source = this,
-                    Destination = destination,
+                    Destination = dest,
                     Type = typeToSend
-                });
-            }
-
-            return result;
+                })
+                .ToList();
         }
 
         public void ConfigureSource(Module source)

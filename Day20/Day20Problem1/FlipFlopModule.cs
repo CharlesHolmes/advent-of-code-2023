@@ -2,43 +2,25 @@
 {
     public class FlipFlopModule : Module
     {
-        private enum FlipFlopState
-        {
-            Off,
-            On
-        }
-
-        private FlipFlopState state = FlipFlopState.Off;
+        private bool _flipFlopOn = false;
 
         public override List<Pulse> HandlePulse(Pulse pulse)
         {
-            if (pulse.Type == PulseType.High) return new List<Pulse>();
+            if (pulse.Type == PulseType.High) return [];
             else
             {
-                PulseType typeToSend;
-                if (state == FlipFlopState.Off)
-                {
-                    state = FlipFlopState.On;
-                    typeToSend = PulseType.High;
-                }
-                else
-                {
-                    state = FlipFlopState.Off;
-                    typeToSend = PulseType.Low;
-                }
-
-                var result = new List<Pulse>();
-                foreach (Module module in Destinations)
-                {
-                    result.Add(new Pulse
+                PulseType typeToSend = _flipFlopOn
+                    ? PulseType.Low
+                    : PulseType.High;
+                _flipFlopOn = !_flipFlopOn;
+                return Destinations
+                    .Select(dest => new Pulse
                     {
                         Source = this,
-                        Destination = module,
+                        Destination = dest,
                         Type = typeToSend
-                    });
-                }
-
-                return result;
+                    })
+                    .ToList();
             }
         }
     }
