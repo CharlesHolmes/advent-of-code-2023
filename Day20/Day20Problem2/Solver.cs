@@ -2,8 +2,8 @@
 {
     public class Solver
     {
-        private readonly Dictionary<string, Module> _modules = new Dictionary<string, Module>();
-        private readonly List<long> _cycleLengths = new List<long>();
+        private readonly Dictionary<string, Module> _modules = [];
+        private readonly List<long> _cycleLengths = [];
         private int _cycleLengthExpectedCount = 0;
 
         public long GetSolution(string[] inputLines)
@@ -52,7 +52,7 @@
                 }
                 else
                 {
-                    throw new Exception("What is this?");
+                    throw new ArgumentException($"Unrecognized module text prefix: {moduleText}", nameof(inputLines));
                 }
             }
         }
@@ -66,7 +66,7 @@
                 string[] destinations = halves[1].Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string destination in destinations)
                 {
-                    if (_modules.TryGetValue(destination, out Module destinationModule))
+                    if (_modules.TryGetValue(destination, out Module? destinationModule))
                     {
                         _modules[moduleName].Destinations.Add(destinationModule);
                         if (destinationModule is ConjunctionModule conjunctionModule)
@@ -102,7 +102,7 @@
             while (pulsesToProcess.Any())
             {
                 var current = pulsesToProcess.Dequeue();
-                List<Pulse> output = current.Destination.HandlePulse(current);
+                List<Pulse> output = current.Destination!.HandlePulse(current);
                 foreach (Pulse pulse in output)
                 {
                     pulsesToProcess.Enqueue(pulse);
@@ -110,7 +110,7 @@
             }
         }
 
-        private long GetGreatestCommonFactor(long a, long b)
+        private static long GetGreatestCommonFactor(long a, long b)
         {
             while (b != 0)
             {
@@ -121,7 +121,7 @@
             return a;
         }
 
-        private long GetLeastCommonMultiple(long a, long b)
+        private static long GetLeastCommonMultiple(long a, long b)
         {
             return (a / GetGreatestCommonFactor(a, b)) * b;
         }

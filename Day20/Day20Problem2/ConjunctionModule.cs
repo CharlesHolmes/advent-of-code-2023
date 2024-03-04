@@ -2,49 +2,37 @@
 {
     public class ConjunctionModule : Module
     {
-        private readonly Dictionary<Module, PulseType> _lastPulseFromSource = new Dictionary<Module, PulseType>();
+        private readonly Dictionary<Module, PulseType> _lastPulseFromSource = [];
+        private readonly Dictionary<Module, bool> _foundCycle = [];
         public bool MarkedForCycleCheck { get; set; }
-        public Action<long> RecordCycleLength { get; set; }
-        private readonly Dictionary<Module, bool> _foundCycle = new Dictionary<Module, bool>();
+        public Action<long>? RecordCycleLength { get; set; }
 
         public override List<Pulse> HandlePulse(Pulse pulse)
         {
-            if (MarkedForCycleCheck)
+            if (pulse.Source == null) throw new ArgumentException("Pulse source cannot be null.", nameof(pulse));
+            if (MarkedForCycleCheck 
+                && _lastPulseFromSource[pulse.Source] == PulseType.Low
+                && pulse.Type == PulseType.High
+                && !_foundCycle[pulse.Source])
             {
-                if (_lastPulseFromSource[pulse.Source] == PulseType.Low
-                    && pulse.Type == PulseType.High
-                    && !_foundCycle[pulse.Source])
-                {
-                    Console.Out.WriteLine($"{pulse.Source.Name} went high at {pulse.ButtonPresses} presses");
-                    _foundCycle[pulse.Source] = true;
-                    RecordCycleLength(pulse.ButtonPresses);
-                }
+                _foundCycle[pulse.Source] = true;
+                if (RecordCycleLength == null) throw new InvalidOperationException("RecordCycleLength action cannot be null.");
+                RecordCycleLength(pulse.ButtonPresses);
             }
 
             _lastPulseFromSource[pulse.Source] = pulse.Type;
-            PulseType typeToSend;
-            if (_lastPulseFromSource.Values.All(p => p == PulseType.High))
-            {
-                typeToSend = PulseType.Low;
-            }
-            else
-            {
-                typeToSend = PulseType.High;
-            }
-
-            var result = new List<Pulse>();
-            foreach (Module destination in Destinations)
-            {
-                result.Add(new Pulse
+            PulseType typeToSend = _lastPulseFromSource.Values.All(p => p == PulseType.High)
+                ? PulseType.Low
+                : PulseType.High;
+            return Destinations
+                .Select(dest => new Pulse
                 {
                     Source = this,
-                    Destination = destination,
+                    Destination = dest,
                     Type = typeToSend,
                     ButtonPresses = pulse.ButtonPresses
-                });
-            }
-
-            return result;
+                })
+                .ToList();
         }
 
         public void ConfigureSource(Module source)
