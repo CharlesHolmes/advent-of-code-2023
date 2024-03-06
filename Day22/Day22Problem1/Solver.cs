@@ -5,7 +5,6 @@
         public long GetSolution(string[] inputLines)
         {
             var bricks = new List<Brick>();
-            int name = 1;
             foreach (string line in inputLines)
             {
                 string[] halves = line.Split('~');
@@ -20,8 +19,6 @@
                 {
                     bricks.Add(new Brick(secondPoint, firstPoint));
                 }
-
-                name++;
             }
 
             bricks = bricks.OrderBy(b => b.Point1.Z).ToList();
