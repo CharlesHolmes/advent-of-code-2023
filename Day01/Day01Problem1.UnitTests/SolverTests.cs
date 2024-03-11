@@ -1,57 +1,47 @@
+using Moq;
+
 namespace Day01Problem1.UnitTests
 {
     [TestClass]
     public class SolverTests
     {
-        private Solver _solver = new();
+        private readonly Mock<ILine> _lineMock = new Mock<ILine>();
+        private readonly Mock<ILineFactory> _lineFactoryMock = new Mock<ILineFactory>();
 
         [TestInitialize()]
         public void Setup()
         {
-            _solver = new Solver();
+            _lineFactoryMock.Reset();
         }
 
-        [DataTestMethod]
-        [DataRow("asd5blwpol1", 51, DisplayName = "Exactly two numbers")]
-        [DataRow("8fweue62jre874iujer", 84, DisplayName = "More than two numbers")]
-        [DataRow("iufoqjfjd4lkdkogfs", 44, DisplayName = "Only one number")]
-        public void TestInputSingleLine(string inputLine, long expected)
+        [TestMethod]
+        public void TestInputSingleLine()
         {
-            long actual = _solver.GetSolution([inputLine]);
+            string inputLine = "abc";
+            long expected = 123;
+            _lineMock.Setup(m => m.GetLineValue()).Returns(expected);
+            _lineFactoryMock.Setup(m => m.Create(inputLine)).Returns(_lineMock.Object);
+            var solver = new Solver(_lineFactoryMock.Object);
+            long actual = solver.GetSolution([inputLine]);
+            _lineFactoryMock.Verify(m => m.Create(inputLine));
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void TestInputMultipleLines()
         {
-            var input = new string[3];
-            input[0] = "7fgdjfgiuewr236hrf8e"; // 78
-            input[1] = "kfghu43873908erjk09iw"; // 49
-            input[2] = "98wq0ejoikfgd908kjl34"; // 94
-            long expected = 221; // sum of above
-            long actual = _solver.GetSolution(input);
-            Assert.AreEqual(expected, actual);
-        }
+            string[] input = ["abc", "def", "ghi"];
+            long expected = 30;
+            _lineMock.Setup(m => m.GetLineValue()).Returns(expected / input.Length);
+            _lineFactoryMock.Setup(m => m.Create(It.IsIn(input))).Returns(_lineMock.Object);
+            var solver = new Solver(_lineFactoryMock.Object);
+            long actual = solver.GetSolution(input);
+            foreach (string s in input)
+            {
+                _lineFactoryMock.Verify(m => m.Create(s));
+            }
 
-        [TestMethod]
-        public async Task TestRealInputIfExists()
-        {
-            string projectName = _solver.GetType().Assembly.GetName().Name!;
-            string inputFolderPath = Environment.ExpandEnvironmentVariables(
-                $"%USERPROFILE%\\Desktop\\AdventOfCode2023Inputs\\{projectName}");
-            string inputFilePath = $"{inputFolderPath}\\input.txt";
-            string resultFilePath = $"{inputFolderPath}\\result.txt";
-            if (File.Exists(inputFilePath) && File.Exists(resultFilePath))
-            {
-                string[] input = await File.ReadAllLinesAsync(inputFilePath);
-                long expected = long.Parse((await File.ReadAllLinesAsync(resultFilePath))[0]);
-                long actual = _solver.GetSolution(input);
-                Assert.AreEqual(expected, actual);
-            }
-            else
-            {
-                Assert.Inconclusive("Unable to test due to missing input and/or result files.");
-            }
+            Assert.AreEqual(30, actual);
         }
     }
 }
