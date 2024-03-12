@@ -4,15 +4,10 @@ namespace Day01Problem2.NumberWords
 {
     public class NumberWord
     {
-        public string Word { get; init; }
-        public int Value { get; init; }
+        public string Word { get; private init; }
+        public int Value { get; private init; }
 
-        public NumberWord()
-        {
-            Word = string.Empty;
-        }
-
-        public NumberWord(string word, int val)
+        private NumberWord(string word, int val)
         {
             Word = word;
             Value = val;
