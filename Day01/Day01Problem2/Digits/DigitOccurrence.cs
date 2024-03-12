@@ -2,8 +2,15 @@
 {
     public class DigitOccurrence
     {
-        public char DigitChar { get; init; }
-        public int Index { get; init; }
+        public char DigitChar { get; private init; }
+        public int Index { get; private init; }
+
+        public DigitOccurrence(char digitChar, int index)
+        {
+            DigitChar = digitChar;
+            Index = index;
+        }
+
         public int DigitValue
         {
             get

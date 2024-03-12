@@ -21,8 +21,8 @@ namespace Day01Problem2
 
         private int GetFirstWordOrDigitValue()
         {
-            NumberWordOccurrence? firstWordOccurrence = _numberWordSearch.GetFirstNumberWordOccurrence();
-            DigitOccurrence? firstDigitOccurrence = _digitSearch.GetFirstDigitOccurrence();
+            NumberWordOccurrence? firstWordOccurrence = _numberWordSearch.FirstOccurrence;
+            DigitOccurrence? firstDigitOccurrence = _digitSearch.FirstDigitOccurrence;
             if (firstDigitOccurrence != null && firstWordOccurrence != null)
             {
                 if (firstDigitOccurrence.Index < firstWordOccurrence.Index)
@@ -42,8 +42,8 @@ namespace Day01Problem2
 
         private int GetLastWordOrDigitValue()
         {
-            NumberWordOccurrence? lastWordOccurrence = _numberWordSearch.GetLastNumberWordOccurrence();
-            DigitOccurrence? lastDigitOccurrence = _digitSearch.GetLastDigitOccurrence();
+            NumberWordOccurrence? lastWordOccurrence = _numberWordSearch.LastOccurrence;
+            DigitOccurrence? lastDigitOccurrence = _digitSearch.LastDigitOccurence;
             if (lastDigitOccurrence != null && lastWordOccurrence != null)
             {
                 if (lastDigitOccurrence.Index > lastWordOccurrence.Index)
