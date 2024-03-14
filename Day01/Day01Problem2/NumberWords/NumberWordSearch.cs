@@ -1,6 +1,6 @@
 ﻿namespace Day01Problem2.NumberWords
 {
-    public class NumberWordSearch
+    public class NumberWordSearch : INumberWordSearch
     {
         public NumberWordOccurrence? FirstOccurrence { get; private init; }
         public NumberWordOccurrence? LastOccurrence { get; private init; }

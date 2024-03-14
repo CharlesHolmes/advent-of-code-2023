@@ -1,17 +1,20 @@
 ﻿using Day01Problem2.Digits;
 using Day01Problem2.NumberWords;
 
-namespace Day01Problem2
+namespace Day01Problem2.InputLine
 {
-    public class InputLine
+    public class InputLine : IInputLine
     {
-        private readonly NumberWordSearch _numberWordSearch;
-        private readonly DigitSearch _digitSearch;
+        private readonly INumberWordSearch _numberWordSearch;
+        private readonly IDigitSearch _digitSearch;
 
-        public InputLine(string inputString)
+        public InputLine(
+            string inputString,
+            IDigitSearchFactory digitSearchFactory,
+            INumberWordSearchFactory numberWordSearchFactory)
         {
-            _numberWordSearch = new NumberWordSearch(inputString);
-            _digitSearch = new DigitSearch(inputString);
+            _numberWordSearch = numberWordSearchFactory.Create(inputString);
+            _digitSearch = digitSearchFactory.Create(inputString);
         }
 
         public int GetLineValue()

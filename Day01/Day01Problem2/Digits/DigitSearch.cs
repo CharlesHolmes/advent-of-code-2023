@@ -1,6 +1,6 @@
 ﻿namespace Day01Problem2.Digits
 {
-    public class DigitSearch
+    public class DigitSearch : IDigitSearch
     {
         public DigitOccurrence? FirstDigitOccurrence { get; private init; }
         public DigitOccurrence? LastDigitOccurence { get; private init; }
