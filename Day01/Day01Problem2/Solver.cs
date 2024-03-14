@@ -1,13 +1,24 @@
-﻿namespace Day01Problem2
+﻿using Day01Problem2.InputLine;
+
+namespace Day01Problem2
 {
     public class Solver
     {
+        private readonly IInputLineFactory _inputLineFactory;
+
+        public Solver(IInputLineFactory inputLineFactory)
+        {
+            _inputLineFactory = inputLineFactory;
+        }
+
         public long GetSolution(string[] inputLines)
         {
             long sum = 0;
             foreach (string line in inputLines)
             {
-                sum += new InputLine(line).GetLineValue();
+                sum += _inputLineFactory
+                    .Create(line)
+                    .GetLineValue();
             }
 
             return sum;

@@ -1,5 +1,8 @@
-﻿namespace Day01Problem1
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Day01Problem1
 {
+    [ExcludeFromCodeCoverage]
     internal static class Program
     {
         static async Task Main(string[] args)

@@ -1,22 +1,26 @@
-using Day01Problem2;
+using Day01Problem2.Digits;
+using Day01Problem2.InputLine;
+using Day01Problem2.NumberWords;
 
-namespace Day02Problem2.UnitTests
+namespace Day01Problem2.UnitTests
 {
     [TestClass]
     public class FullInputTest
     {
-        private Solver _solver = new();
+        private Solver? _solver;
 
         [TestInitialize()]
         public void Setup()
         {
-            _solver = new Solver();
+            _solver = new Solver(
+                new InputLineFactory(
+                    new NumberWordSearchFactory(), new DigitSearchFactory()));
         }
 
         [TestMethod]
         public async Task TestRealInputIfExists()
         {
-            string projectName = _solver.GetType().Assembly.GetName().Name!;
+            string projectName = _solver!.GetType().Assembly.GetName().Name!;
             string inputFolderPath = Environment.ExpandEnvironmentVariables(
                 $"%USERPROFILE%\\Desktop\\AdventOfCode2023Inputs\\{projectName}");
             string inputFilePath = $"{inputFolderPath}\\input.txt";
