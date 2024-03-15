@@ -2,6 +2,7 @@
 
 namespace Day01Problem2.UnitTests.Digits
 {
+    [TestClass]
     public class DigitOccurrenceTests
     {
         [DataTestMethod]
