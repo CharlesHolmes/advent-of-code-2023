@@ -1,7 +1,7 @@
 ﻿using Day01Problem2.Digits;
 using Day01Problem2.NumberWords;
 
-namespace Day01Problem2.InputLine
+namespace Day01Problem2.InputLines
 {
     public class InputLineFactory : IInputLineFactory
     {

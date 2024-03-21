@@ -32,17 +32,17 @@ namespace Day01Problem2.UnitTests.Digits
         public void VerifyLastDigitIdentified(string input, char c, int index, int value)
         {
             var search = new DigitSearch(input);
-            Assert.IsNotNull(search.LastDigitOccurence);
-            Assert.AreEqual(c, search.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(index, search.LastDigitOccurence.Index);
-            Assert.AreEqual(value, search.LastDigitOccurence.DigitValue);
+            Assert.IsNotNull(search.LastDigitOccurrence);
+            Assert.AreEqual(c, search.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(index, search.LastDigitOccurrence.Index);
+            Assert.AreEqual(value, search.LastDigitOccurrence.DigitValue);
         }
 
         [TestMethod]
         public void VerifyLastDigitNull()
         {
             var search = new DigitSearch("abcdefg");
-            Assert.IsNull(search.LastDigitOccurence);
+            Assert.IsNull(search.LastDigitOccurrence);
         }
     }
 }

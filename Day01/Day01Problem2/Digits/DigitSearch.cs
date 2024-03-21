@@ -3,7 +3,7 @@
     public class DigitSearch : IDigitSearch
     {
         public DigitOccurrence? FirstDigitOccurrence { get; private init; }
-        public DigitOccurrence? LastDigitOccurence { get; private init; }
+        public DigitOccurrence? LastDigitOccurrence { get; private init; }
 
         public DigitSearch(string inputString)
         {
@@ -12,7 +12,7 @@
                 .Where(x => char.IsDigit(x.DigitChar))
                 .ToArray();
             FirstDigitOccurrence = digitOccurrences.FirstOrDefault();
-            LastDigitOccurence = digitOccurrences.LastOrDefault();
+            LastDigitOccurrence = digitOccurrences.LastOrDefault();
         }
     }
 }

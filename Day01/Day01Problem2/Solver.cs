@@ -1,4 +1,4 @@
-﻿using Day01Problem2.InputLine;
+﻿using Day01Problem2.InputLines;
 
 namespace Day01Problem2
 {
