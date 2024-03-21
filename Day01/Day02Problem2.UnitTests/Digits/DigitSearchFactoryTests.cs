@@ -54,9 +54,9 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNotNull(result.LastDigitOccurence);
-            Assert.AreEqual('6', result.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(11, result.LastDigitOccurence.Index);
+            Assert.IsNotNull(result.LastDigitOccurrence);
+            Assert.AreEqual('6', result.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(11, result.LastDigitOccurrence.Index);
         }
 
         [TestMethod]
@@ -80,7 +80,7 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNull(result.LastDigitOccurence);
+            Assert.IsNull(result.LastDigitOccurrence);
         }
 
         [TestMethod]
@@ -104,7 +104,7 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNull(result.LastDigitOccurence);
+            Assert.IsNull(result.LastDigitOccurrence);
         }
 
         [TestMethod]
@@ -130,9 +130,9 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNotNull(result.LastDigitOccurence);
-            Assert.AreEqual('6', result.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(5, result.LastDigitOccurence.Index);
+            Assert.IsNotNull(result.LastDigitOccurrence);
+            Assert.AreEqual('6', result.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(5, result.LastDigitOccurrence.Index);
         }
 
         [TestMethod]
@@ -158,9 +158,9 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNotNull(result.LastDigitOccurence);
-            Assert.AreEqual('1', result.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(0, result.LastDigitOccurence.Index);
+            Assert.IsNotNull(result.LastDigitOccurrence);
+            Assert.AreEqual('1', result.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(0, result.LastDigitOccurrence.Index);
         }
 
         [TestMethod]
@@ -186,9 +186,9 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNotNull(result.LastDigitOccurence);
-            Assert.AreEqual('1', result.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(1, result.LastDigitOccurence.Index);
+            Assert.IsNotNull(result.LastDigitOccurrence);
+            Assert.AreEqual('1', result.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(1, result.LastDigitOccurrence.Index);
         }
 
         [TestMethod]
@@ -212,7 +212,7 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNull(result.LastDigitOccurence);
+            Assert.IsNull(result.LastDigitOccurrence);
         }
 
         [TestMethod]
@@ -236,7 +236,7 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNull(result.LastDigitOccurence);
+            Assert.IsNull(result.LastDigitOccurrence);
         }
 
         [TestMethod]
@@ -260,7 +260,7 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNull(result.LastDigitOccurence);
+            Assert.IsNull(result.LastDigitOccurrence);
         }
 
         [TestMethod]
@@ -286,9 +286,9 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNotNull(result.LastDigitOccurence);
-            Assert.AreEqual('1', result.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(1, result.LastDigitOccurence.Index);
+            Assert.IsNotNull(result.LastDigitOccurrence);
+            Assert.AreEqual('1', result.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(1, result.LastDigitOccurrence.Index);
         }
 
         [TestMethod]
@@ -314,9 +314,9 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNotNull(result.LastDigitOccurence);
-            Assert.AreEqual('3', result.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(3, result.LastDigitOccurence.Index);
+            Assert.IsNotNull(result.LastDigitOccurrence);
+            Assert.AreEqual('3', result.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(3, result.LastDigitOccurrence.Index);
         }
 
         [TestMethod]
@@ -342,9 +342,9 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNotNull(result.LastDigitOccurence);
-            Assert.AreEqual('3', result.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(2, result.LastDigitOccurence.Index);
+            Assert.IsNotNull(result.LastDigitOccurrence);
+            Assert.AreEqual('3', result.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(2, result.LastDigitOccurrence.Index);
         }
 
         [TestMethod]
@@ -370,9 +370,9 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNotNull(result.LastDigitOccurence);
-            Assert.AreEqual('3', result.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(3, result.LastDigitOccurence.Index);
+            Assert.IsNotNull(result.LastDigitOccurrence);
+            Assert.AreEqual('3', result.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(3, result.LastDigitOccurrence.Index);
         }
 
         [TestMethod]
@@ -398,9 +398,9 @@ namespace Day01Problem2.UnitTests.Digits
             // Act
             var result = factory.Create(inputString);
             // Assert
-            Assert.IsNotNull(result.LastDigitOccurence);
-            Assert.AreEqual('3', result.LastDigitOccurence.DigitChar);
-            Assert.AreEqual(4, result.LastDigitOccurence.Index);
+            Assert.IsNotNull(result.LastDigitOccurrence);
+            Assert.AreEqual('3', result.LastDigitOccurrence.DigitChar);
+            Assert.AreEqual(4, result.LastDigitOccurrence.Index);
         }
     }
 }

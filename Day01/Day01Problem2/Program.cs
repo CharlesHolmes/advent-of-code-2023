@@ -1,5 +1,5 @@
 ﻿using Day01Problem2.Digits;
-using Day01Problem2.InputLine;
+using Day01Problem2.InputLines;
 using Day01Problem2.NumberWords;
 using System.Diagnostics.CodeAnalysis;
 

@@ -1,4 +1,4 @@
-using Day01Problem2.InputLine;
+using Day01Problem2.InputLines;
 using Moq;
 
 namespace Day01Problem2.UnitTests

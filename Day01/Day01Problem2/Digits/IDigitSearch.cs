@@ -3,6 +3,6 @@
     public interface IDigitSearch
     {
         DigitOccurrence? FirstDigitOccurrence { get; }
-        DigitOccurrence? LastDigitOccurence { get; }
+        DigitOccurrence? LastDigitOccurrence { get; }
     }
 }

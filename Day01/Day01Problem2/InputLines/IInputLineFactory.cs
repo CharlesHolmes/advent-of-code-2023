@@ -1,4 +1,4 @@
-﻿namespace Day01Problem2.InputLine
+﻿namespace Day01Problem2.InputLines
 {
     public interface IInputLineFactory
     {

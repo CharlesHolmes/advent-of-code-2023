@@ -1,7 +1,7 @@
 ﻿using Day01Problem2.Digits;
 using Day01Problem2.NumberWords;
 
-namespace Day01Problem2.InputLine
+namespace Day01Problem2.InputLines
 {
     public class InputLine : IInputLine
     {
@@ -46,7 +46,7 @@ namespace Day01Problem2.InputLine
         private int GetLastWordOrDigitValue()
         {
             NumberWordOccurrence? lastWordOccurrence = _numberWordSearch.LastOccurrence;
-            DigitOccurrence? lastDigitOccurrence = _digitSearch.LastDigitOccurence;
+            DigitOccurrence? lastDigitOccurrence = _digitSearch.LastDigitOccurrence;
             if (lastDigitOccurrence != null && lastWordOccurrence != null)
             {
                 if (lastDigitOccurrence.Index > lastWordOccurrence.Index)
