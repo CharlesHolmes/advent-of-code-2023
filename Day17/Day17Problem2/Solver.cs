@@ -8,11 +8,16 @@
             // start from top left (using queue)
             var origin = new PathStepKey { Position = new Block { RowIndex = 0, ColumnIndex = 0 }, LastMoves = new List<Direction> { Direction.Right } };
             heatLossStats.TotalHeatLoss[origin.Position.RowIndex][origin.Position.ColumnIndex][origin.LastMovesKey] = 0;
-            var toEvaluate = new Queue<PathStepKey>();
-            toEvaluate.Enqueue(origin);
-            while (toEvaluate.Any())
+            var toEvaluate = new PriorityQueue<PathStepKey, long>();
+            toEvaluate.Enqueue(origin, 0);
+            while (toEvaluate.TryDequeue(out PathStepKey current, out long currentHeatLoss))
             {
-                var current = toEvaluate.Dequeue();
+                if (current.Position.RowIndex == inputLines.Length - 1
+                    && current.Position.ColumnIndex == inputLines.Last().Length - 1)
+                {
+                    return currentHeatLoss;
+                }
+
                 if (current.Position.RowIndex > 0 && current.LastMoves.TakeLast(1).Single() != Direction.Down)
                 {
                     AttemptExploreAdjacent(current, Direction.Up, toEvaluate, heatLossStats);
@@ -34,13 +39,7 @@
                 }
             }
 
-            long result = int.MaxValue;
-            foreach (KeyValuePair<string, long> kvp in heatLossStats.TotalHeatLoss[inputLines.Length - 1][inputLines[0].Length - 1])
-            {
-                result = Math.Min(result, kvp.Value);
-            }
-
-            return result;
+            throw new InvalidOperationException("Unable to reach goal position.");
         }
         
         private bool IsLegalMove(PathStepKey current, Direction nextMove)
@@ -100,15 +99,16 @@
             };
         }
 
-        private void AttemptExploreAdjacent(PathStepKey current, Direction move, Queue<PathStepKey> nextSteps, HeatLossStats heatLossStats)
+        private void AttemptExploreAdjacent(PathStepKey current, Direction move, PriorityQueue<PathStepKey, long> nextSteps, HeatLossStats heatLossStats)
         {
             if (!IsLegalMove(current, move)) return;
             var nextStep = GetNext(current, move);
             if (BlockAlreadyHasLowerHeatLoss(current, nextStep, heatLossStats)) return;
 
             long currentTotal = heatLossStats.TotalHeatLoss[current.Position.RowIndex][current.Position.ColumnIndex][current.LastMovesKey];
-            heatLossStats.TotalHeatLoss[nextStep.Position.RowIndex][nextStep.Position.ColumnIndex][nextStep.LastMovesKey] = currentTotal + heatLossStats.StepHeatLoss[nextStep.Position.RowIndex][nextStep.Position.ColumnIndex];
-            nextSteps.Enqueue(nextStep);
+            long nextHeatLoss = currentTotal + heatLossStats.StepHeatLoss[nextStep.Position.RowIndex][nextStep.Position.ColumnIndex];
+            heatLossStats.TotalHeatLoss[nextStep.Position.RowIndex][nextStep.Position.ColumnIndex][nextStep.LastMovesKey] = nextHeatLoss;
+            nextSteps.Enqueue(nextStep, nextHeatLoss);
         }
     }
 }
